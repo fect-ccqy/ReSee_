@@ -204,7 +204,7 @@ public class DeskDrawer : SceneObjWithState<DeskDrawerState>
 
     private void OnMouseUpAsButton()
     {
-        if (GameManager.gameManagerInstance.GetIsGlobalObjRespondMouse())
+        if (GameManager.gameManagerInstance.GetIsSceneObjRespondMouse())
         {
             ObjTrigger("CloseDrawerClick");
             //SetSelfViewByState();

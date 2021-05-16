@@ -64,7 +64,7 @@ public class DeskLamp : SceneObjWithState<DeskLampState>
 
     private void OnMouseUpAsButton()
     {
-        if (GameManager.gameManagerInstance.GetIsGlobalObjRespondMouse())
+        if (GameManager.gameManagerInstance.GetIsSceneObjRespondMouse())
         {
             ObjTrigger(NormalTriggers.mouseClick);
             //SetSelfViewByState();

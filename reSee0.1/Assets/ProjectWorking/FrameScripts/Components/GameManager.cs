@@ -21,13 +21,14 @@ public class GameManager : MonoBehaviour,TaskMessenger
     private bool isGlobalObjRespondMouse = true;//场景中所有物体是否响应鼠标点击（场景中的物品与道具栏的道具都受其控制）（指流程上，播放动画与文字时是否应响应）
 
 
+    [SerializeField] private UIController uIController;
 
     //一些组件
     [SerializeField] private TextController theTextController;
     [SerializeField] private UIPropList theUIPropList;
     [SerializeField] private CameraController theCameraController;
     [SerializeField] private PropDataManager thePropDataManager;
-
+    [SerializeField] private PopupController thePopupController;
 
 
     //关于同时调用，添加多个task的问题。从逻辑上应该避免，他们之间是互斥的。
@@ -44,11 +45,22 @@ public class GameManager : MonoBehaviour,TaskMessenger
     private bool isCameraDefault=true;
 
 
+    //private bool isPopupExist=false;
+    //private InteractiveObj popupObj;//用于暂存弹出窗口的物体
 
-    public bool GetIsGlobalObjRespondMouse()
+
+    public bool GetIsSceneObjRespondMouse()
+    {
+        return isGlobalObjRespondMouse&&(!thePopupController.GetIsShowPopup());
+    }
+
+    public bool GetIsGlobalRespondMouse()
     {
         return isGlobalObjRespondMouse;
     }
+
+
+
 
     public bool GetIsProcessorWorking()
     {
@@ -56,7 +68,7 @@ public class GameManager : MonoBehaviour,TaskMessenger
     }
 
 
-    private void SetIsGlobalObjRespondMouse(bool isRespond)
+    public void SetIsGlobalObjRespondMouse(bool isRespond)
     {
         isGlobalObjRespondMouse = isRespond;
     }
@@ -259,7 +271,8 @@ public class GameManager : MonoBehaviour,TaskMessenger
             isCameraDefault = false;
             SetIsGlobalObjRespondMouse(false);
             theCameraController.AddTaskWithCallBack(theTaskContent, this, NormalTriggers.cameraMoveFinishWork);
-
+            //print("ActiveCameraReturnButton");
+            uIController.ActiveCameraReturnButton();
 
             return 0;
         }
@@ -364,6 +377,45 @@ public class GameManager : MonoBehaviour,TaskMessenger
     public string GetNowChosenProp()
     {
         return thePropDataManager.GetNowChosenProp();
+    }
+
+
+
+    //**********************弹窗相关************************
+
+
+    public int ShowPopUp(GameObject thePopup,InteractiveObj tpopupObj)
+    {
+        int t = thePopupController.ShowPopUp(thePopup, tpopupObj);
+        if (t == 0)
+        {
+            //SetIsGlobalObjRespondMouse(false);
+
+        }
+        
+        return t;
+
+    }
+
+
+    public int ClosePopup()
+    {
+        int t = thePopupController.ClosePopup();
+        if (t == 0)
+        {
+           // SetIsGlobalObjRespondMouse(true);
+        }
+
+        return t;
+
+
+    }
+
+
+
+    public int SetPopupSceneObjView()
+    {
+        return thePopupController.SetPopupSceneObjView();
     }
 
 

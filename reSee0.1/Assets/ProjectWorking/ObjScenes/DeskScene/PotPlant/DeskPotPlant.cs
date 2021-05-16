@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/*
+ 
+ 
 public enum DeskPotPlantState
 {
     WaitSeed,
@@ -14,10 +16,106 @@ public enum DeskPotPlantState
     Finish
 
 }
+ 
+ */
 
+
+
+public enum DeskPotPlantState
+{
+    WaitSeed,
+    HaveSeed,
+    HaveFruit,
+    Finish
+
+}
 
 public class DeskPotPlant : SceneObjWithState<DeskPotPlantState>
 {
+    [SerializeField] private GameObject popupPrefab;
+
+    [SerializeField] private Sprite WaitSeedSprite;
+    [SerializeField] private Sprite HaveSeedSprite;
+    [SerializeField] private Sprite HaveFruitSprite;
+    [SerializeField] private Sprite FinishSprite;
+
+
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        InitAddDicKeyStateValue(DeskPotPlantState.WaitSeed);
+
+        SetSelfViewByState();
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        ObjTrigger("MouseClick");
+    }
+
+
+    public override void ObjTrigger(string eventName)
+    {
+        if (GameManager.gameManagerInstance.GetIsSceneObjRespondMouse())
+        {
+
+            if (eventName == "MouseClick")
+            {
+                GameManager.gameManagerInstance.ShowPopUp(popupPrefab, this);
+            }
+        }
+    }
+
+    public override void SetSelfSceneObjByState()
+    {
+        SetSelfViewByState();
+    }
+
+    protected override void SetSelfViewByState()
+    {
+        DeskPotPlantState tStateValue = GetDicStateValue();
+
+        switch (tStateValue)
+        {
+            case DeskPotPlantState.WaitSeed:
+                spriteRenderer.sprite = WaitSeedSprite;
+
+                break;
+
+
+            case DeskPotPlantState.HaveSeed:
+                spriteRenderer.sprite = HaveSeedSprite;
+                break;
+
+
+
+            case DeskPotPlantState.HaveFruit:
+                spriteRenderer.sprite = HaveFruitSprite;
+                break;
+
+            case DeskPotPlantState.Finish:
+                spriteRenderer.sprite = FinishSprite;
+                break;
+
+
+            default:
+                break;
+
+
+        }
+
+
+
+    }
+
+
+    /*   
+     
+     
+
+
 
     [SerializeField] private Sprite emptyPot, potWithSeed, potWithFruit, finishPot;
     [SerializeField] private PropContent deskHammerContent;
@@ -26,6 +124,9 @@ public class DeskPotPlant : SceneObjWithState<DeskPotPlantState>
 
     [SerializeField] private Vector3 theFruitFallPosisiton;
     [SerializeField]private Sprite fruitSprite, fruitWithHammer;
+
+    [SerializeField] private GameObject thePopupObj;
+
     private SpriteRenderer fruitRenderer;
     private SpriteRenderer spriteRenderer;
 
@@ -198,12 +299,19 @@ public class DeskPotPlant : SceneObjWithState<DeskPotPlantState>
 
     private void OnMouseUpAsButton()
     {
-        if (GameManager.gameManagerInstance.GetIsGlobalObjRespondMouse())
-        {
-            ObjTrigger("ClickFlowerpot");
+        
+      
 
-        }
+
+        print("click");
+        GameManager.gameManagerInstance.ShowPopUp(thePopupObj, this);
+
     }
+
+     
+     */
+
+
 
 
 
@@ -219,4 +327,5 @@ public class DeskPotPlant : SceneObjWithState<DeskPotPlantState>
     {
 
     }
+
 }

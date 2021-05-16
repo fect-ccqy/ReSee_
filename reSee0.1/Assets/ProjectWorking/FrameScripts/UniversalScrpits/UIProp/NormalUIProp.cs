@@ -90,7 +90,7 @@ public class NormalUIProp : InteractiveObj
     {
 
         //Debug.LogFormat("click happen");
-        if (GameManager.gameManagerInstance.GetIsGlobalObjRespondMouse())
+        if (GameManager.gameManagerInstance.GetIsGlobalRespondMouse())
         {
             ObjTrigger(NormalTriggers.mouseClick);
         }

@@ -21,6 +21,12 @@ public abstract class InteractiveObj : MonoBehaviour,TaskMessenger
     //或者可以在ObjTrigger中进行对该方法的调用，当视图在逻辑上需要变动时，调用该方法
     protected abstract void SetSelfViewByState();
 
+    public virtual void SetSelfSceneObjByState()
+    {
+
+    }
+
+
 
     public string GetObjName()
     {

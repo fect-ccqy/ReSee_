@@ -18,7 +18,7 @@ public class TestSceneObj : MonoBehaviour,TaskMessenger
 
     private void OnMouseUpAsButton()
     {
-        if (GameManager.gameManagerInstance.GetIsGlobalObjRespondMouse()) {
+        if (GameManager.gameManagerInstance.GetIsSceneObjRespondMouse()) {
 
 
             if (stateValue == 0)

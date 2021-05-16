@@ -61,7 +61,7 @@ public class DeskPlug : SceneObjWithState<DeskPlugState>
 
     private void OnMouseUpAsButton()
     {
-        if (GameManager.gameManagerInstance.GetIsGlobalObjRespondMouse())
+        if (GameManager.gameManagerInstance.GetIsSceneObjRespondMouse())
         {
             ObjTrigger(NormalTriggers.mouseClick);
             //SetSelfViewByState();

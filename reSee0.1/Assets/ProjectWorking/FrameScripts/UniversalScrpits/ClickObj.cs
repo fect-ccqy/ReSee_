@@ -8,7 +8,7 @@ public class ClickObj : MonoBehaviour
     [SerializeField] string eventName;
     private void OnMouseUpAsButton()
     {
-        if (GameManager.gameManagerInstance.GetIsGlobalObjRespondMouse())
+        if (GameManager.gameManagerInstance.GetIsSceneObjRespondMouse())
         {
             theListener.ObjTrigger(eventName);
 

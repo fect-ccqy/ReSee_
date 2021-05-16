@@ -4,8 +4,21 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-   public void  CameraReturnToDefault()
+    [SerializeField] private GameObject cameraReturnButton;
+
+    private void Awake()
+    {
+        cameraReturnButton.SetActive(false);
+    }
+
+    public void ActiveCameraReturnButton()
+    {
+        cameraReturnButton.SetActive(true);
+    }
+
+    public void  CameraReturnToDefault()
     {
         GameManager.gameManagerInstance.CameraMoveBackToDefault();
+        cameraReturnButton.SetActive(false);
     }
 }
