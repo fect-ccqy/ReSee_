@@ -3873,6 +3873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a50aceb46796ed4f8ac7a95df1e9713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  theCamera: {fileID: 519420031}
   theMouse: {fileID: 198611505}
   defaultMouseSprite: {fileID: 21300000, guid: b092ea79c4450cf4e82430258d9f0f65, type: 3}
   overColor: {r: 1, g: 1, b: 1, a: 0.85882354}

@@ -25,7 +25,7 @@ public class MouseManager : MonoBehaviour
 
     public static MouseManager mouseManagerInstance;
     
-
+    [SerializeField] private Camera theCamera;
     [SerializeField] private GameObject theMouse;//默认鼠标实体
     private Transform theMouseTransform;//默认鼠标实体的transfrom
     private Vector3 mouseWorldPosition;//暂时变量，因为需要频繁的创建销毁，就放到这里来了
@@ -347,6 +347,9 @@ public class MouseManager : MonoBehaviour
 
     private void Update()
     {
+        theMouseTransform.localScale = theCamera.orthographicSize / 20f * new Vector3(1f, 1f, 1f);
+
+
         //defaultCallBackMode
         if (mouseCallBackMode==MouseCallBackMode.defaultCallBackMode)
         {

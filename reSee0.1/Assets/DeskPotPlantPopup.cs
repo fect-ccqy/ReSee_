@@ -24,6 +24,10 @@ public class DeskPotPlantPopup : SceneObjWithState<DeskPotPlantState>
     [SerializeField] private GameObject fruit;
     [SerializeField] private Sprite[] fruitSprites;
 
+    [SerializeField] private GameObject hammerImage;
+
+    private bool isHammerOut=false;
+
 
     private void Awake()
     {
@@ -82,7 +86,37 @@ public class DeskPotPlantPopup : SceneObjWithState<DeskPotPlantState>
                     StartCoroutine(PlayGettingHammer());
                 }
 
-                //开启动画协程
+            }
+
+
+            else if (eventName == "ClickHammerFruit")
+            {
+                if (isHammerOut)
+                {
+                    Vector3 tPosition = hammerImage.GetComponent<RectTransform>().position;
+                    tPosition.z = 0;
+                    deskHammerContent.startPosition = tPosition;
+                    //
+                    //print(fruit.GetComponent<RectTransform>().position);
+                    if (GameManager.gameManagerInstance.AddProp(deskHammerContent) == 0)
+                    {
+
+                        fruit.SetActive(false);
+                        hammerImage.SetActive(false);
+
+                        SetDicStateValue(DeskPotPlantState.Finish);
+
+                        SetSelfViewByState();
+
+                        GameManager.gameManagerInstance.SetPopupSceneObjView();
+
+
+                    }
+
+
+
+                }
+
 
 
             }
@@ -127,6 +161,7 @@ public class DeskPotPlantPopup : SceneObjWithState<DeskPotPlantState>
     {
         GameManager.gameManagerInstance.SetIsGlobalObjRespondMouse(false);
 
+        potPlantImage.sprite = FinishSprite;
 
         float speed1=1.5f;
 
@@ -136,7 +171,7 @@ public class DeskPotPlantPopup : SceneObjWithState<DeskPotPlantState>
         Image fruitImage = fruit.GetComponent<Image>();
 
         Vector2 startPosition = fruitTransfrom.anchoredPosition;
-        Vector2 targetPosition = new Vector2(-85f, -50f);
+        Vector2 targetPosition = new Vector2(-23f, -32f);
         Vector2 deltaPosition = targetPosition - startPosition;
 
         for (float timer = 0; timer < 1; timer += Time.deltaTime* speed1)
@@ -162,31 +197,18 @@ public class DeskPotPlantPopup : SceneObjWithState<DeskPotPlantState>
 
 
         }
-        fruit.SetActive(false);
+        hammerImage.SetActive(true);
+        isHammerOut = true;
         yield return 0;
 
-
-
-        SetDicStateValue(DeskPotPlantState.Finish);
-
-        SetSelfViewByState();
 
         GameManager.gameManagerInstance.SetPopupSceneObjView();
 
 
-        while (true)
-        {
-            if (GameManager.gameManagerInstance.AddProp(deskHammerContent) == 0)
-            {
-                break;
-            }
-        }
-
-
-        yield return 0;
-
-
         GameManager.gameManagerInstance.SetIsGlobalObjRespondMouse(true);
+
+
+
     }
 
 
